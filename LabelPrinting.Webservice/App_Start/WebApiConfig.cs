@@ -14,7 +14,7 @@ namespace LabelPrinting.Webservice
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            // return json
+            // return json  
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
 
@@ -23,6 +23,8 @@ namespace LabelPrinting.Webservice
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new {id = RouteParameter.Optional}
             );
+
+            config.EnableCors();
         }
     }
 }

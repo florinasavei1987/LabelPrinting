@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using LabelPrinting.Webservice.Models;
 using Newtonsoft.Json;
 
@@ -16,12 +17,26 @@ namespace LabelPrinting.Webservice.Controllers
         /// Read printers from config file
         /// </summary>
         /// <returns></returns>
+        [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
         [HttpGet]
         [ActionName("getPrinters")]
         // GET api/<controller>
-        public IEnumerable<string> GetPrinters()
+        public string GetPrinters()
         {
-            return new string[] { "Printer1", "Printer2" };
+            return JsonConvert.SerializeObject(new List<Printer>
+            {
+                new Printer
+                {
+                    Id = "1",
+                    Name = "Printer 1"
+                },
+                 new Printer
+                {
+                    Id = "2",
+                    Name = "Printer 2"
+                }
+            });
+            //  return new string[] { "Printer1", "Printer2" };
         }
 
         /// <summary>
@@ -34,7 +49,7 @@ namespace LabelPrinting.Webservice.Controllers
         // GET api/<controller>
         public string GetPrinterLabel(string id)
         {
-            return JsonConvert.SerializeObject(new PrinterLabel
+            return JsonConvert.SerializeObject(new PrintingLabel
             {
                 PrinterId = "testid",
                 FontSize = ""

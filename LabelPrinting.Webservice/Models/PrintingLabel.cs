@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LabelPrinting.Webservice.Models
 {
-    public class PrinterLabel
+    public class PrintingLabel
     {
         public string PrinterId { get; set; }
         public string FontSize { get; set; }
