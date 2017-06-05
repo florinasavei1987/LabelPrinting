@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPrinting.Webservice", "LabelPrinting.Webservice\LabelPrinting.Webservice.csproj", "{263373BE-289D-4D64-A6F9-CECE103E5512}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsFramework", "JsFramework", "{C6A28245-4B45-4F4A-A4EC-6B74EC1B90C2}"
-	ProjectSection(SolutionItems) = preProject
-		JsFramework\index.html = JsFramework\index.html
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

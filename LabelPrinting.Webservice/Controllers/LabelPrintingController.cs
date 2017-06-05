@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace LabelPrinting.Webservice.Controllers
 {
+    [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
     public class LabelPrintingController : ApiController
     {
         /// <summary>
@@ -17,26 +18,26 @@ namespace LabelPrinting.Webservice.Controllers
         /// Read printers from config file
         /// </summary>
         /// <returns></returns>
-        [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
+    
         [HttpGet]
         [ActionName("getPrinters")]
         // GET api/<controller>
-        public string GetPrinters()
+        public IHttpActionResult GetPrinters()
         {
-            return JsonConvert.SerializeObject(new List<Printer>
+            var printersList = new List<Printer>
             {
                 new Printer
                 {
                     Id = "1",
                     Name = "Printer 1"
                 },
-                 new Printer
+                new Printer
                 {
                     Id = "2",
                     Name = "Printer 2"
                 }
-            });
-            //  return new string[] { "Printer1", "Printer2" };
+            };
+            return Ok(printersList);
         }
 
         /// <summary>
@@ -45,24 +46,40 @@ namespace LabelPrinting.Webservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ActionName("getPrinter")]
+        [ActionName("getPrinterLabel")]
         // GET api/<controller>
-        public string GetPrinterLabel(string id)
+        public IHttpActionResult GetPrinterLabel(string id)
         {
-            return JsonConvert.SerializeObject(new PrintingLabel
+            var printerLabel1 = new PrintingLabel
             {
-                PrinterId = "testid",
+                PrinterId = "1",
                 FontSize = ""
-            });
+            };
+
+            var printerLabel2 = new PrintingLabel
+            {
+                PrinterId = "1",
+                FontSize = ""
+            };
+
+            if (id == "1")
+                return Ok(printerLabel1);
+            return Ok(printerLabel2);
+
+            //  return JsonConvert.SerializeObject();
         }
 
 
         /// <summary>
         /// Add printer, just post to api url
         /// </summary>
-        /// <param name="value"></param>
-        public void Post([FromBody]string value)
+        /// <param name="printerLabel"></param>
+        [HttpPost]
+        [ActionName("print")]
+        public HttpResponseMessage Print([FromBody]PrintingLabel printerLabel)
         {
+           return Request.CreateResponse(HttpStatusCode.OK, "success");
+            // return Ok(true);
         }
 
         // GET api/<controller>
