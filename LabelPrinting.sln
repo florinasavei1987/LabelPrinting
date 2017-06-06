@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPrinting.Webservice", 
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LabelPrinterInstaller", "LabelPrinterInstaller\LabelPrinterInstaller.vdproj", "{585BC4E0-9E29-4E12-932A-8F7035659713}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{263373BE-289D-4D64-A6F9-CECE103E5512}.Release|Any CPU.Build.0 = Release|Any CPU
 		{585BC4E0-9E29-4E12-932A-8F7035659713}.Debug|Any CPU.ActiveCfg = Debug
 		{585BC4E0-9E29-4E12-932A-8F7035659713}.Release|Any CPU.ActiveCfg = Release
+		{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
