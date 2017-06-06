@@ -133,28 +133,22 @@ labelprinting.app = function () {
 	}
 
 	function print(printerId, textToPrint) {
-
-		// get printer label
-		getPrinterLabel(printerId).then(function (printerLabel) {
-			printerLabel.TextToPrint = textToPrint;
-			debugger;
-			// print label
-			//printLabel(printerLabel).then(function (result) {
+		return new Promise(function (resolve, reject) {
+			// get printer label
+			getPrinterLabel(printerId).then(function (printerLabel) {
+				printerLabel.TextToPrint = textToPrint;
 				debugger;
+				// print label
+				printLabel(printerLabel).then(function (result) {
+					debugger;
 
-				debugger;
-
-
-			
-	
-
-			//	if (result)
-			//		resolve(true);
-			//	else
-				//	reject('Error on printing');
-			//});
+					if (result)
+						resolve(true);
+					else
+						reject('Error on printing');
+				});
+			});
 		});
-
 	}
 
 	return {

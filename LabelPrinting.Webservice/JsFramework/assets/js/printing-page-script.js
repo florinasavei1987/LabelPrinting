@@ -58,25 +58,6 @@ labelprinting.printingpage = function () {
 	}
 
 	function onPrintClick() {
-debugger;
-    var printerLabel = {PrinterId :"Scott",FontSize:"HP",TextToPrint:"HP"};
-    $.ajax({
-        type: "POST",
-        data :JSON.stringify(printerLabel),
-        url: labelprinting.config.printServiceEndpoint + labelprinting.config.printEndpoint,
-        contentType: "application/json",
-		  success: function (data, text) {
-        debugger;
-    },
-    error: function (request, status, error) {
-        console.log(request.responseText);
-    }
-    }).done(function(res) {  
-debugger;	
-    console.log('res', res);
-    // Do something with the result :)
-});;
-	/*
 		if (!currentSelectedPrinter) {
 			alert("You have to select a printer")
 			return;
@@ -88,13 +69,14 @@ debugger;
 				return;
 			}
 
-			labelprinting.app.print(currentSelectedPrinter.Id, textToPrint);
-
-		
+			labelprinting.app.print(currentSelectedPrinter.Id, textToPrint).then(function (result) {
+				if (result) {
+					alert('Printed succesfully');
+				}
+			});
 		}
-		*/
-	}
 
+	}
 
 	return {
 		onPrinterClick : onPrinterClick,
