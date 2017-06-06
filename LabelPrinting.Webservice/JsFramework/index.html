@@ -35,8 +35,8 @@
                         <p class="home-description">
                             Select a printer from a list of installed printers over the network:
                         </p>
-                        <div class="btn-group-vertical custom_btn animated slideinright">
-						<div id="printerBtn" class="btn btn-printer printerButton">Printer Test Test Test 1</div>                        
+                        <div id="printersContainer" class="btn-group-vertical custom_btn animated slideinright">
+                      <!-- printers are added in here -->
                         </div>      
 
                     </div>
@@ -63,13 +63,12 @@
                         </div>
                         <p class='subtitle'>Print a label on the specified printer.
                         </p>
-                        <!-- form -->
-                        <form class="form_edit"> 
+             
                             <div class="form-group">
-                            <textarea class="form-control" rows="5" placeholder="Label text"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-printer submit">Label text</button>
-                        </form>
+                            <textarea id="printText" class="form-control" rows="5" placeholder="Label text"></textarea>
+                            </div>						
+                            <button type="submit" onClick="labelprinting.printingpage.onPrintClick()" class="btn btn-printer submit">Print</button>
+                     
                     </div>
                 </div>
             </div>

@@ -43,6 +43,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -52,6 +56,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -76,6 +84,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="JsFramework\index.html" />
+    <Content Include="JsFramework\assets\css\bootstrap-theme.min.css" />
+    <Content Include="JsFramework\assets\css\bootstrap.min.css" />
+    <Content Include="JsFramework\assets\css\font-awesome.min.css" />
+    <Content Include="JsFramework\assets\css\main.css" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="JsFramework\assets\images\labels.jpg" />
+    <Content Include="JsFramework\assets\images\labels2.jpg" />
+    <Content Include="JsFramework\assets\images\print.png" />
+    <Content Include="JsFramework\assets\images\printer_left1.jpg" />
+    <Content Include="JsFramework\assets\images\printer_left2.jpg" />
+    <Content Include="JsFramework\assets\images\printicon.png" />
+    <Content Include="JsFramework\assets\js\bootstrap.min.js" />
+    <Content Include="JsFramework\assets\js\jquery-3.1.0.min.js" />
+    <Content Include="JsFramework\assets\js\printing-page-script.js" />
+    <Content Include="JsFramework\printsdk\labelprinting-framework.js" />
+    <Content Include="JsFramework\ReadMe.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +109,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\PrinterLabel.cs" />
+    <Compile Include="Models\Printer.cs" />
+    <Compile Include="Models\PrintingLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="JsFramework\assets\fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
