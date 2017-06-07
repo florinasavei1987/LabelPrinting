@@ -9,6 +9,54 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LabelPrinterInstaller", "La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsFramework", "JsFramework", "{6B39398D-3A8F-457B-BF27-D91786FB4BCC}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\index.html = JsFramework\index.html
+		JsFramework\ReadMe.txt = JsFramework\ReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{5FD013F0-C8AB-4DC7-AF5A-614FAEC58709}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "printsdk", "printsdk", "{2F520A42-DEB1-48F6-913F-8C0596761DC6}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\printsdk\labelprinting-framework.js = JsFramework\printsdk\labelprinting-framework.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{B02306E7-ED47-455E-892E-07D580167026}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\assets\css\bootstrap-theme.min.css = JsFramework\assets\css\bootstrap-theme.min.css
+		JsFramework\assets\css\bootstrap.min.css = JsFramework\assets\css\bootstrap.min.css
+		JsFramework\assets\css\font-awesome.min.css = JsFramework\assets\css\font-awesome.min.css
+		JsFramework\assets\css\main.css = JsFramework\assets\css\main.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fonts", "fonts", "{F1E86FDC-C39C-4F5D-AB0F-49DA99F14BBC}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\assets\fonts\fontawesome-webfont.eot = JsFramework\assets\fonts\fontawesome-webfont.eot
+		JsFramework\assets\fonts\fontawesome-webfont.svg = JsFramework\assets\fonts\fontawesome-webfont.svg
+		JsFramework\assets\fonts\fontawesome-webfont.ttf = JsFramework\assets\fonts\fontawesome-webfont.ttf
+		JsFramework\assets\fonts\fontawesome-webfont.woff = JsFramework\assets\fonts\fontawesome-webfont.woff
+		JsFramework\assets\fonts\fontawesome-webfont.woff2 = JsFramework\assets\fonts\fontawesome-webfont.woff2
+		JsFramework\assets\fonts\FontAwesome.otf = JsFramework\assets\fonts\FontAwesome.otf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{DBDCA833-6432-4A66-8A51-AF5C50D6DED5}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\assets\images\labels.jpg = JsFramework\assets\images\labels.jpg
+		JsFramework\assets\images\labels2.jpg = JsFramework\assets\images\labels2.jpg
+		JsFramework\assets\images\print.png = JsFramework\assets\images\print.png
+		JsFramework\assets\images\printer_left1.jpg = JsFramework\assets\images\printer_left1.jpg
+		JsFramework\assets\images\printer_left2.jpg = JsFramework\assets\images\printer_left2.jpg
+		JsFramework\assets\images\printicon.png = JsFramework\assets\images\printicon.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{1D3A2185-16F3-4DDA-8132-EC62F135A3F6}"
+	ProjectSection(SolutionItems) = preProject
+		JsFramework\assets\js\bootstrap.min.js = JsFramework\assets\js\bootstrap.min.js
+		JsFramework\assets\js\jquery-3.1.0.min.js = JsFramework\assets\js\jquery-3.1.0.min.js
+		JsFramework\assets\js\printing-page-script.js = JsFramework\assets\js\printing-page-script.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +76,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5FD013F0-C8AB-4DC7-AF5A-614FAEC58709} = {6B39398D-3A8F-457B-BF27-D91786FB4BCC}
+		{2F520A42-DEB1-48F6-913F-8C0596761DC6} = {6B39398D-3A8F-457B-BF27-D91786FB4BCC}
+		{B02306E7-ED47-455E-892E-07D580167026} = {5FD013F0-C8AB-4DC7-AF5A-614FAEC58709}
+		{F1E86FDC-C39C-4F5D-AB0F-49DA99F14BBC} = {5FD013F0-C8AB-4DC7-AF5A-614FAEC58709}
+		{DBDCA833-6432-4A66-8A51-AF5C50D6DED5} = {5FD013F0-C8AB-4DC7-AF5A-614FAEC58709}
+		{1D3A2185-16F3-4DDA-8132-EC62F135A3F6} = {5FD013F0-C8AB-4DC7-AF5A-614FAEC58709}
 	EndGlobalSection
 EndGlobal
