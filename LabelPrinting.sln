@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPrinting.Webservice", 
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LabelPrinterInstaller", "LabelPrinterInstaller\LabelPrinterInstaller.vdproj", "{585BC4E0-9E29-4E12-932A-8F7035659713}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsFrameworkFiles", "JsFrameworkFiles\JsFrameworkFiles.csproj", "{89EC0B87-3C8B-4677-A838-B7B913D7E5FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
