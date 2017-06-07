@@ -9,8 +9,7 @@ namespace LabelPrinting.Webservice.Models
     {
         public string PrinterId { get; set; }
         public string FontSize { get; set; }
-
         public string TextToPrint { get; set; }
-
+        public string LabelName { get; set; }
     }
 }

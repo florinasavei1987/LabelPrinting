@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -79,9 +81,10 @@ namespace LabelPrinting.Webservice.Controllers
         /// <param name="printerLabel"></param>
         [HttpPost]
         [ActionName("print")]
-        public HttpResponseMessage Print([FromBody]PrintingLabel printerLabel)
+        public HttpResponseMessage Print([FromBody] PrintingLabel printerLabel)
         {
-           return Request.CreateResponse(HttpStatusCode.OK, "success");
+            MakePrint(printerLabel.TextToPrint);
+            return Request.CreateResponse(HttpStatusCode.OK, "success");
             // return Ok(true);
         }
 
@@ -100,7 +103,7 @@ namespace LabelPrinting.Webservice.Controllers
         //// PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
-
+            //%MaterialInfo%
         }
 
         // DELETE api/<controller>/5
@@ -108,73 +111,121 @@ namespace LabelPrinting.Webservice.Controllers
         {
         }
 
-        public static void SendFtpCommand()
+        public void MakePrint(string info)
         {
-            var serverName = "[FTP_SERVER_NAME]";
-            var port = 21;
-            var userName = "";
-            var password = "";
-            var command = @"PUT C:\temp";
+           
+            // Get the path of labels
+            string pathToLabelFiles = ConfigurationManager.AppSettings["labelPath"];
+            string strFilePath = pathToLabelFiles + "print.bat";
+            Dictionary<string, string> infos = new Dictionary<string, string>();
+            infos.Add("%MaterialInfo%", info);
+            string printLabelName = PutText(Path.Combine(pathToLabelFiles,"a1.txt"), infos);
+            string ftpUser = ConfigurationManager.AppSettings["ftpUserName"];
+            string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"];
+            string defaultPrinter = ConfigurationManager.AppSettings["ftpServer"];
+            // Create ProcessInfo object
 
-            var tcpClient = new TcpClient();
-            try
-            {
-                tcpClient.Connect(serverName, port);
-                Flush(tcpClient);
+            var psi = new ProcessStartInfo("cmd.exe");
+            psi.Arguments = pathToLabelFiles + printLabelName + " " + defaultPrinter;
+            psi.UseShellExecute = false;
+            psi.RedirectStandardInput = true;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            psi.WorkingDirectory = pathToLabelFiles;
+            // Start the process
+            Process proc = Process.Start(psi);
+            // Attach the output for reading
+            StreamReader sOut = proc.StandardOutput;
+            // Attach the in file for writing
+            StreamWriter sIn = proc.StandardInput;
 
-                var response = TransmitCommand(tcpClient, "user " + userName);
-                if (response.IndexOf("331", StringComparison.OrdinalIgnoreCase) < 0)
-                    throw new Exception(string.Format("Error \"{0}\" while sending user name \"{1}\".", response,
-                        userName));
-
-                response = TransmitCommand(tcpClient, "pass " + password);
-                if (response.IndexOf("230", StringComparison.OrdinalIgnoreCase) < 0)
-                    throw new Exception(string.Format("Error \"{0}\" while sending password.", response));
-
-                response = TransmitCommand(tcpClient, command);
-                if (response.IndexOf("200", StringComparison.OrdinalIgnoreCase) < 0)
-                    throw new Exception(string.Format("Error \"{0}\" while sending command \"{1}\".", response, command));
-            }
-            finally
-            {
-                if (tcpClient.Connected)
-                    tcpClient.Close();
-            }
+            /*
+             * This is the contents of the batch file
+             * @echo off
+                echo user anonymous>ftpcmd.dat
+                echo >> ftpcmd.dat
+                echo bin>> ftpcmd.dat
+                rem Parameter is the file name of the .pof file
+                echo put %1 printer1>> ftpcmd.dat
+                echo quit>> ftpcmd.dat
+                rem parameter is the IP address of the printer
+                ftp -n -s:ftpcmd.dat %2
+                del ftpcmd.dat
+             * 
+             * */
+            // Write each line of the batch file to standard input
+            sIn.WriteLine("@echo off");
+            sIn.WriteLine("echo user " + ftpUser + ">ftpcmd.dat");
+            sIn.WriteLine("echo " + ftpPassword + " >> ftpcmd.dat");
+            sIn.WriteLine("echo bin>> ftpcmd.dat");
+            sIn.WriteLine("echo put " + printLabelName + " printer1>> ftpcmd.dat");
+            sIn.WriteLine("echo quit>> ftpcmd.dat");
+            sIn.WriteLine("ftp -n -s:ftpcmd.dat " + defaultPrinter);
+            sIn.WriteLine("del ftpcmd.dat");
+            //strm.Close();
+            // Exit CMD.EXE
+            const string stEchoFmt = "#{0} run successfully. Exiting";
+            sIn.WriteLine(String.Format(stEchoFmt, strFilePath));
+            sIn.WriteLine("Exit");
+            // Close the process
+            proc.Close();
+            // Read the sOut to a string
+            string results = sOut.ReadToEnd().Trim();
+            // Close the stream
+            sIn.Close();
+            sOut.Close();
         }
 
-        private static string TransmitCommand(TcpClient tcpClient, string cmd)
+        public string PutText(string fileName, Dictionary<string, string> infos)
         {
-            var networkStream = tcpClient.GetStream();
-            if (!networkStream.CanWrite || !networkStream.CanRead)
+            StreamReader sr = new StreamReader(fileName);
+           
+            string newFile = Path.Combine(Path.GetDirectoryName(fileName),
+                Path.GetFileNameWithoutExtension(fileName) + GenerateRandomNo() + ".txt");
+            StreamWriter sw = new StreamWriter(newFile);
+
+            string line = sr.ReadLine();
+            string lineToWrite = CreateFile(newFile, line, infos);
+            if (!string.IsNullOrEmpty(lineToWrite))
+            {
+                sw.WriteLine(lineToWrite);
+            }
+            while (line != null)
+            {
+                line = sr.ReadLine();
+                lineToWrite = CreateFile(newFile, line, infos);
+                if (!string.IsNullOrEmpty(lineToWrite))
+                {
+                    sw.WriteLine(lineToWrite);
+                }
+            }
+            sr.Close();
+            sw.Close();
+            return newFile;
+        }
+
+        private string CreateFile(string newFile, string line, Dictionary<string,string> infos)
+        {
+            if (line == null)
+            {
                 return string.Empty;
-
-            var sendBytes = Encoding.ASCII.GetBytes(cmd + "\r\n");
-            networkStream.Write(sendBytes, 0, sendBytes.Length);
-
-            var streamReader = new StreamReader(networkStream);
-            return streamReader.ReadLine();
+            }
+            foreach (string s in infos.Keys)
+            {
+                if (line.Contains(s))
+                {
+                    line = line.Replace(s, infos[s]);
+                }
+            }
+            return line;
         }
 
-        private static string Flush(TcpClient tcpClient)
+        public int GenerateRandomNo()
         {
-            try
-            {
-                var networkStream = tcpClient.GetStream();
-                if (!networkStream.CanWrite || !networkStream.CanRead)
-                    return string.Empty;
-
-                var receiveBytes = new byte[tcpClient.ReceiveBufferSize];
-                networkStream.ReadTimeout = 10000;
-                networkStream.Read(receiveBytes, 0, tcpClient.ReceiveBufferSize);
-
-                return Encoding.ASCII.GetString(receiveBytes);
-            }
-            catch
-            {
-                // Ignore all irrelevant exceptions
-            }
-
-            return string.Empty;
+            int _min = 0000;
+            int _max = 9999;
+            Random _rdm = new Random();
+            return _rdm.Next(_min, _max);
         }
     }
 }
