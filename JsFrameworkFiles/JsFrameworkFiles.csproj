@@ -48,6 +48,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="JsFramework\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="JsFramework\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="JsFramework\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="JsFramework\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="JsFramework\assets\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JsFramework\assets\css\bootstrap-theme.min.css" />
+    <Content Include="JsFramework\assets\css\bootstrap.min.css" />
+    <Content Include="JsFramework\assets\css\font-awesome.min.css" />
+    <Content Include="JsFramework\assets\css\main.css" />
+    <Content Include="JsFramework\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="JsFramework\assets\images\home.jpg" />
+    <Content Include="JsFramework\assets\images\labels.jpg" />
+    <Content Include="JsFramework\assets\images\labels2.jpg" />
+    <Content Include="JsFramework\assets\images\print.png" />
+    <Content Include="JsFramework\assets\images\printer_left1.jpg" />
+    <Content Include="JsFramework\assets\images\printer_left2.jpg" />
+    <Content Include="JsFramework\assets\images\printicon.png" />
+    <Content Include="JsFramework\assets\js\bootstrap.min.js" />
+    <Content Include="JsFramework\assets\js\jquery-3.1.0.min.js" />
+    <Content Include="JsFramework\assets\js\printing-page-script.js" />
+    <Content Include="JsFramework\index.html" />
+    <Content Include="JsFramework\printsdk\labelprinting-framework.js" />
+    <Content Include="JsFramework\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
