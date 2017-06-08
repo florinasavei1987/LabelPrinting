@@ -9,9 +9,6 @@ namespace LabelPrinting.Webservice.Models
     {
         public string PrinterId { get; set; }
         public string FontSize { get; set; }
-        /// <summary>
-        /// used to send the image
-        /// </summary>
         public string TextToPrint { get; set; }
         /// <summary>
         /// Name of the label on the disk
@@ -21,5 +18,9 @@ namespace LabelPrinting.Webservice.Models
         /// test to be printed on label
         /// </summary>
         public string MaterialInfo { get; set; }
+        /// <summary>
+        /// used to send the image
+        /// </summary>
+        public string ImageToPrint { get; set; }
     }
 }

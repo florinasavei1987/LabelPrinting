@@ -106,8 +106,8 @@ namespace LabelPrinting.Webservice.Controllers
             string pathToLabelFiles = ConfigurationManager.AppSettings["labelPath"];
             string strFilePath = pathToLabelFiles + "print.bat";
             Dictionary<string, string> infos = new Dictionary<string, string>();
-            infos.Add("%MaterialInfo%", printerLabel.TextToPrint);
-           // infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
+            infos.Add("%ImageToPrint%", printerLabel.ImageToPrint);
+            infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
             string printLabelName = PutText(Path.Combine(pathToLabelFiles, printerLabel.LabelName), infos);
             string ftpUser = ConfigurationManager.AppSettings["ftpUserName"];
             string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"];
