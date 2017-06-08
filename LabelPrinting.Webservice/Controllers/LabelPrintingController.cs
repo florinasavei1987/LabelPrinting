@@ -55,23 +55,11 @@ namespace LabelPrinting.Webservice.Controllers
         // GET api/<controller>
         public IHttpActionResult GetPrinterLabel(string id)
         {
-            var printerLabel1 = new PrintingLabel
-            {
-                PrinterId = "1",
-                FontSize = ""
-            };
-
-            var printerLabel2 = new PrintingLabel
-            {
-                PrinterId = "1",
-                FontSize = ""
-            };
+            var printerLabelList1 = new PrintingLabelsPrinter1();
 
             if (id == "1")
-                return Ok(printerLabel1);
-            return Ok(printerLabel2);
-
-            //  return JsonConvert.SerializeObject();
+                return Ok(printerLabelList1.Labels);
+            return Ok(printerLabelList1.Labels);
         }
 
 
@@ -83,7 +71,7 @@ namespace LabelPrinting.Webservice.Controllers
         [ActionName("print")]
         public HttpResponseMessage Print([FromBody] PrintingLabel printerLabel)
         {
-            MakePrint(printerLabel.TextToPrint);
+            MakePrint(printerLabel);
             return Request.CreateResponse(HttpStatusCode.OK, "success");
             // return Ok(true);
         }
@@ -111,15 +99,16 @@ namespace LabelPrinting.Webservice.Controllers
         {
         }
 
-        public void MakePrint(string info)
+        public void MakePrint(PrintingLabel printerLabel)
         {
            
             // Get the path of labels
             string pathToLabelFiles = ConfigurationManager.AppSettings["labelPath"];
             string strFilePath = pathToLabelFiles + "print.bat";
             Dictionary<string, string> infos = new Dictionary<string, string>();
-            infos.Add("%MaterialInfo%", info);
-            string printLabelName = PutText(Path.Combine(pathToLabelFiles,"a1.txt"), infos);
+            infos.Add("%MaterialInfo%", printerLabel.TextToPrint);
+           // infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
+            string printLabelName = PutText(Path.Combine(pathToLabelFiles, printerLabel.LabelName), infos);
             string ftpUser = ConfigurationManager.AppSettings["ftpUserName"];
             string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"];
             string defaultPrinter = ConfigurationManager.AppSettings["ftpServer"];
@@ -174,6 +163,8 @@ namespace LabelPrinting.Webservice.Controllers
             // Close the stream
             sIn.Close();
             sOut.Close();
+
+            File.Delete(printLabelName);
         }
 
         public string PutText(string fileName, Dictionary<string, string> infos)
