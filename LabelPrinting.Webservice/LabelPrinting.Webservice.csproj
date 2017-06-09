@@ -93,6 +93,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Printer.cs" />
+    <Compile Include="Models\PrintingLabelsPrinter1.cs" />
     <Compile Include="Models\PrintingLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
