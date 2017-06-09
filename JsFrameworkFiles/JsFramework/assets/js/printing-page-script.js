@@ -69,13 +69,45 @@ labelprinting.printingpage = function () {
 				return;
 			}
 
-			labelprinting.app.print(currentSelectedPrinter.Id, textToPrint).then(function (result) {
-				if (result) {
-					alert('Printed succesfully');
-				}
-			});
+			var encodedImage = '';
+			var files = document.getElementById('file').files;
+			if (files.length > 0) {
+
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function () {
+					encodedImage = reader.result;
+					labelprinting.app.print(currentSelectedPrinter.Id, textToPrint, encodedImage).then(function (result) {
+						if (result) {
+							alert('Printed succesfully');
+							return;
+						}
+					});
+				};
+				reader.onerror = function (error) {
+					console.log('Error: ', error);
+				};
+
+			} else {
+				labelprinting.app.print(currentSelectedPrinter.Id, textToPrint, encodedImage).then(function (result) {
+					if (result) {
+						alert('Printed succesfully');
+					}
+				});
+			}
 		}
 
+	}
+	
+	function getBase64(file) {
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function () {
+			return reader.result;
+		};
+		reader.onerror = function (error) {
+			console.log('Error: ', error);
+		};
 	}
 
 	return {

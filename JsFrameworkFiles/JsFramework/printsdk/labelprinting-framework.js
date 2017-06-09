@@ -132,11 +132,12 @@ labelprinting.app = function () {
 		});
 	}
 
-	function print(printerId, textToPrint) {
+	function print(printerId, textToPrint, imageToPrint) {
 		return new Promise(function (resolve, reject) {
 			// get printer label
 			getPrinterLabel(printerId).then(function (printerLabel) {
 				printerLabel.TextToPrint = textToPrint;
+				printerLabel.ImageToPrint = imageToPrint;
 				debugger;
 				// print label
 				printLabel(printerLabel).then(function (result) {
