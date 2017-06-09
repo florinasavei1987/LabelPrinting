@@ -12,5 +12,7 @@ namespace LabelPrinting.Webservice.Models
 
         public string TextToPrint { get; set; }
 
+        public string ImageToPrint { get; set; }
+        
     }
 }
