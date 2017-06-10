@@ -52,15 +52,11 @@ namespace LabelPrinting.Webservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ActionName("getPrinterLabel")]
+        [ActionName("getPrinterLabels")]
         // GET api/<controller>
-        public IHttpActionResult GetPrinterLabel(string id)
+        public IHttpActionResult GetPrinterLabels(string id)
         {
-            var printerLabelList1 = new PrintingLabelsPrinter1();
-
-            if (id == "1")
-                return Ok(printerLabelList1.Labels);
-            return Ok(printerLabelList1.Labels);
+            return Ok(PrintingLabels.Labels.Where(item => item.PrinterId == id));
         }
 
 
@@ -77,29 +73,6 @@ namespace LabelPrinting.Webservice.Controllers
             // return Ok(true);
         }
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value"; //test b
-        }
-
-        //// PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-            //%MaterialInfo%
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
-
         public void MakePrint(PrintingLabel printerLabel)
         {
            
@@ -109,7 +82,7 @@ namespace LabelPrinting.Webservice.Controllers
             Dictionary<string, string> infos = new Dictionary<string, string>();
             infos.Add("%ImageToPrint%", printerLabel.ImageToPrint);
             infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
-            string printLabelName = PutText(Path.Combine(pathToLabelFiles, printerLabel.LabelName), infos);
+            string printLabelName = PutText(Path.Combine(pathToLabelFiles, printerLabel.LabelFileName), infos);
             string ftpUser = ConfigurationManager.AppSettings["ftpUserName"];
             string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"];
             string defaultPrinter = ConfigurationManager.AppSettings["ftpServer"];
