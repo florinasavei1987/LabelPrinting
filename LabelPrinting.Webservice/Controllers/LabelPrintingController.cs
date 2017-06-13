@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -68,6 +69,11 @@ namespace LabelPrinting.Webservice.Controllers
         [ActionName("print")]
         public HttpResponseMessage Print([FromBody] PrintingLabel printerLabel)
         {
+            printerLabel.ImageToPrint = printerLabel.ImageToPrint.Replace("data:image/jpeg;base64,", "");
+           var path = HttpContext.Current.Server.MapPath("");
+
+            File.WriteAllBytes(path + "\\testimageMyImage.jpg", Convert.FromBase64String(printerLabel.ImageToPrint));
+
             MakePrint(printerLabel);
             return Request.CreateResponse(HttpStatusCode.OK, "success");
             // return Ok(true);
