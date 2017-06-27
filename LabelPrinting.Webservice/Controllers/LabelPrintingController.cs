@@ -11,6 +11,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using ImageMagick;
 using LabelPrinting.Webservice.Models;
 using Newtonsoft.Json;
 
@@ -80,8 +81,36 @@ namespace LabelPrinting.Webservice.Controllers
             string pathToLabelFiles = ConfigurationManager.AppSettings["labelPath"];
             string strFilePath = pathToLabelFiles + "print.bat";
             Dictionary<string, string> infos = new Dictionary<string, string>();
-            infos.Add("%ImageToPrint%", printerLabel.ImageToPrint);
+            infos.Add("%TextToPrint%", printerLabel.TextToPrint);
             infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
+            //if (!string.IsNullOrEmpty(printerLabel.TextToPrint))
+            //{
+            //    infos.Add("%TextToPrint%", printerLabel.TextToPrint);
+            //    printerLabel.LabelFileName = "a3.txt";
+            //}
+            //else
+            //{
+            // //   infos.Add("%ImageToPrint%", printerLabel.ImageToPrint);
+            //    infos.Add("%MaterialInfo%", printerLabel.MaterialInfo);
+            //}
+           
+          
+            //printerLabel.ImageToPrint = printerLabel.ImageToPrint.Substring(printerLabel.ImageToPrint.IndexOf(",", StringComparison.Ordinal) + 1);
+            //byte[] ff = Convert.FromBase64String(printerLabel.ImageToPrint);
+            //MagickImage img = new MagickImage(ff);
+            //img.Format = MagickFormat.Pcx;
+            //MemoryStream m = new MemoryStream();
+            //img.Write(m);
+            //using (StreamReader reader = new StreamReader(m))
+            //{
+            //    m.Position = 0;
+            //    string newFile = Path.Combine(Path.GetDirectoryName(Path.Combine(pathToLabelFiles, printerLabel.LabelFileName)),
+            //    Path.GetFileNameWithoutExtension(Path.Combine(pathToLabelFiles, printerLabel.LabelFileName)) + GenerateRandomNo() + ".txt");
+            //    StreamWriter sw = new StreamWriter(newFile);
+            //    sw.WriteLine(reader.ReadToEnd());
+            //}
+
+          
             string printLabelName = PutText(Path.Combine(pathToLabelFiles, printerLabel.LabelFileName), infos);
             string ftpUser = ConfigurationManager.AppSettings["ftpUserName"];
             string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"];
@@ -143,7 +172,7 @@ namespace LabelPrinting.Webservice.Controllers
 
         public string PutText(string fileName, Dictionary<string, string> infos)
         {
-            StreamReader sr = new StreamReader(fileName);
+            StreamReader sr = new StreamReader(fileName, Encoding.ASCII);
            
             string newFile = Path.Combine(Path.GetDirectoryName(fileName),
                 Path.GetFileNameWithoutExtension(fileName) + GenerateRandomNo() + ".txt");
@@ -166,6 +195,28 @@ namespace LabelPrinting.Webservice.Controllers
             }
             sr.Close();
             sw.Close();
+            return newFile;
+        }
+
+        public string PutAllText(string fileName, Dictionary<string, string> infos)
+        {
+            string newFile = Path.Combine(Path.GetDirectoryName(fileName),
+              Path.GetFileNameWithoutExtension(fileName) + GenerateRandomNo() + ".txt");
+
+            FileInfo inn = new FileInfo(fileName);
+            inn.CopyTo(newFile);
+
+
+            //string initial = File.ReadAllText(newFile);
+            //foreach (string s in infos.Keys)
+            //{
+            //    if (initial.Contains(s))
+            //    {
+            //        initial = initial.Replace(s, infos[s]);
+            //    }
+            //}
+
+            File.WriteAllText(newFile, infos["%TextToPrint%"]);
             return newFile;
         }
 
