@@ -12,7 +12,6 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using ImageMagick;
 using LabelPrinting.Webservice.Models;
 using Newtonsoft.Json;
 
